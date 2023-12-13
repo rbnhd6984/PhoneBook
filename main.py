@@ -1,7 +1,32 @@
 import csv
 import easygui
 
+
 # Пишем функции не выходя
+
+# Функция для редактирования записи в телефонном справочнике
+def edit_entry():
+    name = easygui.enterbox("Введите имя:").lower()
+    with open('phonebook.csv', 'r') as f:
+        reader = csv.reader(f)
+        rows = list(reader)
+    found = False
+    for row in rows:
+        if row[0] == name:
+            phone = easygui.enterbox(f"Введите новый номер телефона для {name}:")
+            row[1] = phone
+            found = True
+            break
+    if found:
+        with open('phonebook.csv', 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerows(rows)
+        easygui.msgbox(f"Запись {name}: {phone} изменена в телефонном справочнике.")
+    else:
+        easygui.msgbox(f"Запись {name} не найдена в телефонном справочнике.")
+
+        
+# Функция поиска записи в телефонном справочнике
 def search_entry():
     name = easygui.enterbox("Введите имя для поиска:").lower()
     with open('pb.csv', 'r') as file:
@@ -17,13 +42,17 @@ def search_entry():
         if not found:
             easygui.msgbox(f"Запись с именем {name} не найдена.")
 
+
 # За пределы этих комментов
 
 # Основной цикл программы
 while True:
     # Отображаем пользователю меню с возможными действиями
     choice = easygui.buttonbox("Выберите действие:",
-                               choices=["Добавить запись", "Удалить запись", "Редактировать запись", "Найти запись",
+                               choices=["Добавить запись",
+                                        "Удалить запись",
+                                        "Редактировать запись",
+                                        "Найти запись",
                                         "Выход"])
 
     # Выполняем выбранное действие
