@@ -25,6 +25,23 @@ def edit_entry():
     else:
         easygui.msgbox(f"Запись {name} не найдена в телефонном справочнике.")
 
+        
+# Функция поиска записи в телефонном справочнике
+def search_entry():
+    name = easygui.enterbox("Введите имя для поиска:").lower()
+    with open('pb.csv', 'r') as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+        found = False
+        for row in rows:
+            # Сравнение без учета регистра
+            if row[0].lower() == name:
+                easygui.msgbox(f"Найдена запись: Имя - {row[0]}, Телефон - {row[1]}")
+                found = True
+                break
+        if not found:
+            easygui.msgbox(f"Запись с именем {name} не найдена.")
+
 
 # За пределы этих комментов
 
