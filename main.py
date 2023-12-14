@@ -2,21 +2,17 @@ import csv
 import easygui
 
 
-# Пишем функции не выходя
-
 # Функция добавления записи в справочник
 def add_entry():
     name = easygui.enterbox("Введите имя:").lower()
-    phone = easygui.enterbox("Input phone number:")
-    with open("pb.csv", "a", newline='') as file:
+    phone = easygui.enterbox("Введите номер телефона:")
+    with open('pb.csv', 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerows([name, phone])
-    easygui.msgbox(f"Contact {name}: {phone} added")
-
+        writer.writerow([name, phone])
+    easygui.msgbox(f"Запись {name}: {phone} добавлена в телефонный справочник.")
 
 
 # Функция удаления записи из справочника
-
 def delete_entry():
     name = easygui.enterbox("Введите имя:").lower()
     with open('pb.csv', 'r') as file:
@@ -58,7 +54,7 @@ def edit_entry():
     else:
         easygui.msgbox(f"Запись {name} не найдена в телефонном справочнике.")
 
-        
+
 # Функция поиска записи в телефонном справочнике
 def search_entry():
     name = easygui.enterbox("Введите имя для поиска:").lower()
@@ -75,8 +71,6 @@ def search_entry():
         if not found:
             easygui.msgbox(f"Запись с именем {name} не найдена.")
 
-
-# За пределы этих комментов
 
 # Основной цикл программы
 while True:
